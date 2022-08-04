@@ -1,0 +1,21 @@
+hibernate/HELP.md
+hibernate/target/
+hibernate/!.mvn/wrapper/maven-wrapper.jar
+hibernate/!**/src/main/**/target/
+hibernate/!**/src/test/**/target/
+
+### STS ###
+hibernate/apt_generated
+hibernate/classpath
+hibernate/factorypath
+hibernate/project
+hibernate/settings
+hibernate/springBeans
+hibernate/sts4-cache
+
+### IntelliJ IDEA ###
+hibernate/.idea
+.idea
+*.iws
+*.iml
+*.ipr

@@ -2,11 +2,8 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
-  http://www.liquibase.org/xml/ns/pro
-  http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="1659192712520-1" author="sripr">
         <sql>create table hibernate_sequence (next_val bigint);</sql>
@@ -15,6 +12,12 @@
             id bigint not null auto_increment,
             km_allocated bigint,
             name varchar(255),
+            primary key (id)
+            );</sql>
+        <sql>create table driver (
+            id bigint not null auto_increment,
+            first_name varchar(255),
+            last_name varchar(255),
             primary key (id)
             );</sql>
     </changeSet>

@@ -19,7 +19,4 @@ public class Location {
     public String name;
 
     public Long kmAllocated;
-
-    public Location(String name, Long kmAllocated) {
-    }
 }

@@ -1,6 +1,7 @@
 package com.siripiri.example.hibernate.dao;
 
 import com.siripiri.example.hibernate.domain.Driver;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -141,6 +142,79 @@ public class DriverDaoImpl implements DriverDao {
         } catch (NoResultException ee) {
             return null;
         } finally {
+            entityManager.close();
+        }
+    }
+
+    /*
+     * Pagination and Sorting using Hibernate:
+     *
+     *  Pagination:
+     *
+     *  Paging :
+     *  Is a way to get a ‘page’ of data from a long list of values
+     *  For example,
+     *      page three of 100 records, Common on websites search results or catalogs
+     *
+     *  SQL Paging:
+     *  Uses SQL clauses of limit and offset
+     *      ○ Limit - Limits the number of rows returned
+     *      ○ Offset - Number of rows to skip over
+     *      ○ Example 30 records, 10 per page
+     *              Page 1 - Limit 10, Offset 0
+     *              Page 2 - Limit 10, Offset 10
+     *              Page 3 - Limit 10, Offset 20
+     *
+     *  Example:
+     */
+
+    @Override
+    public List<Driver> findAll(Pageable pageable) {
+        EntityManager entityManager = getEntityManager();
+        try{
+            TypedQuery<Driver> query = entityManager.createQuery("SELECT d from Driver d", Driver.class);
+            // get the offset and page number from pageable object
+            query.setFirstResult(Math.toIntExact(pageable.getPageNumber()));
+            query.setMaxResults(pageable.getPageSize());
+            return query.getResultList();
+        }
+        catch (NoResultException ee) {
+            return null;
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
+    /*
+     * Sorting:
+     *  How the data is ordered
+     *  Can be natural (order came out of database) or by one or more columns
+     *
+     *  SQL Sorting:
+     *      Uses SQL order by clause
+     *          ○ ASC - (default) Ascending Order
+     *          ○ Desc - Descending
+     *          ○ Physical Order - When no sort clause is provided. Whatever order the records are stored in the database.
+     *          ○ Often will return rows in the same order, BUT this is not guaranteed
+     *
+     *  Example:
+     */
+
+    @Override
+    public List<Driver> findAllSortByFirstName(Pageable pageable) {
+        EntityManager entityManager = getEntityManager();
+        try{
+            String hql = "SELECT d FROM Driver d ORDER BY d.firstName " + pageable.getSort().getOrderFor("firstName").getDirection().name();
+            TypedQuery<Driver> query = entityManager.createQuery(hql, Driver.class);
+            query.setFirstResult(Math.toIntExact(pageable.getPageNumber()));
+            query.setMaxResults(pageable.getPageSize());
+            return  query.getResultList();
+        }
+        catch (NoResultException ee){
+            return null;
+        }
+        finally {
             entityManager.close();
         }
     }

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -163,5 +165,24 @@ public class DaoIntegrationTest {
 
         assertThat(driver).isNotNull();
         assertThat(driver.getId()).isEqualTo(1L);
+    }
+
+    @Test
+    void testFindAllByPagination() {
+        // PageRequest.of( page: 0, size: 10)
+        List<Driver> driverList = driverDao.findAll(PageRequest.of(0,10));
+
+        assertThat(driverList).isNotNull();
+        assertThat(driverList.size()).isGreaterThan(9);
+        assertThat(driverList.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAllSortByFirstName() {
+        List<Driver> driverList = driverDao.findAllSortByFirstName(PageRequest.of(0,10, Sort.by(Sort.Order.desc("firstName"))));
+
+        assertThat(driverList).isNotNull();
+        assertThat(driverList.size()).isEqualTo(10);
+        assertThat(driverList.get(0).getFirstName()).isEqualTo("ken");
     }
 }

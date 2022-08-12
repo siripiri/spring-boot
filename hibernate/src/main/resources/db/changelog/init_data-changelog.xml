@@ -7,5 +7,15 @@
     <changeSet id="1659193298750-1" author="sripr">
         <sql>insert into location (name, km_allocated) values ('Erode', 250); </sql>
         <sql>insert into driver (first_name, last_name) values ('Sriprasath', 'C P'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Naveen', 'B S'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Saran', 'C V'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Lelouch', 'Vi Britania'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Kanake', 'Ken'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Mikasa', 'Ackerman'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Eren', 'Yeager'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Ewrin', 'Smith'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Takemichi', 'Hanagaki'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Hinata', 'Takemichi'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('ken', 'Ryuguji'); </sql>
     </changeSet>
 </databaseChangeLog>

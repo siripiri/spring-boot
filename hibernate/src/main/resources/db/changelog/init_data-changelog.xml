@@ -9,7 +9,7 @@
         <sql>insert into driver (first_name, last_name) values ('Sriprasath', 'C P'); </sql>
         <sql>insert into driver (first_name, last_name) values ('Naveen', 'B S'); </sql>
         <sql>insert into driver (first_name, last_name) values ('Saran', 'C V'); </sql>
-        <sql>insert into driver (first_name, last_name) values ('Lelouch', 'Vi Britania'); </sql>
+        <sql>insert into driver (first_name, last_name) values ('Alexa', 'Amazon'); </sql>
         <sql>insert into driver (first_name, last_name) values ('Kanake', 'Ken'); </sql>
         <sql>insert into driver (first_name, last_name) values ('Mikasa', 'Ackerman'); </sql>
         <sql>insert into driver (first_name, last_name) values ('Eren', 'Yeager'); </sql>

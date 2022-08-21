@@ -2,11 +2,13 @@ package com.siripiri.example.hibernate.dao;
 
 import com.siripiri.example.hibernate.domain.Driver;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class DriverDaoImpl implements DriverDao {
 
     private final EntityManagerFactory entityManagerFactory;

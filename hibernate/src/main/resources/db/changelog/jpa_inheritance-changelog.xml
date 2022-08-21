@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="1661023598763-1" author="sripr">
+        <!-- SINGLE TYPE -->
+        <sql>create table account (
+                dtype varchar(31) not null,
+                id bigint not null auto_increment,
+                balance decimal(19,2),
+                interest_rate decimal(19,2),
+                owner varchar(255),
+                credit_limit bigint,
+                over_draft_fee bigint,
+                primary key (id)
+            );</sql>
+
+        <!-- MAPPED SUPER CLASS -->
+        <sql>create table driiver (
+                id bigint not null auto_increment,
+                first_name varchar(255),
+                last_name varchar(255),
+                lorry_name varchar(255),
+                owner_name varchar(255),
+                primary key (id)
+            );</sql>
+
+        <sql>create table owner (
+                id bigint not null auto_increment,
+                first_name varchar(255),
+                last_name varchar(255),
+                no_of_lorry bigint,
+                primary key (id)
+            );</sql>
+
+        <!-- Joined Table -->
+        <sql>create table electric_guitar (
+                number_of_pickups integer,
+                id bigint not null,
+                primary key (id)
+            );</sql>
+
+        <sql>create table guitar (
+                number_of_strings integer,
+                id bigint not null,
+                primary key (id)
+            );</sql>
+
+        <sql>create table instruments (
+                id bigint not null auto_increment,
+                primary key (id)
+            );</sql>
+
+        <sql>create table piano (
+                number_of_keys integer,
+                id bigint not null,
+                primary key (id)
+            );</sql>
+
+        <sql>alter table electric_guitar
+            add constraint addGuitarConstrain
+            foreign key (id)
+            references guitar (id);</sql>
+
+        <sql>alter table guitar
+            add constraint addInstrumentContrainForGuitar
+            foreign key (id)
+            references instruments (id);</sql>
+
+        <sql>alter table piano
+            add constraint addInstrumentContrainForPiano
+            foreign key (id)
+            references instruments (id);</sql>
+
+        <!-- Table Per Class -->
+        <sql>create table dolphin (
+                id bigint not null,
+                body_temp integer,
+                species varchar(255),
+                has_spots bit,
+                primary key (id)
+            );</sql>
+
+        <sql>create table dog (
+                id bigint not null,
+                body_temp integer,
+                species varchar(255),
+                breed varchar(255),
+                primary key (id)
+            );</sql>
+
+        <sql>create table mammal (
+                id bigint not null,
+                body_temp integer,
+                species varchar(255),
+                primary key (id)
+            );</sql>
+    </changeSet>
+</databaseChangeLog>

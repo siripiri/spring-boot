@@ -6,8 +6,14 @@ import com.siripiri.example.hibernate.dao.LocationDao;
 import com.siripiri.example.hibernate.dao.LocationDaoImpl;
 import com.siripiri.example.hibernate.domain.Driver;
 import com.siripiri.example.hibernate.domain.Location;
+import com.siripiri.example.hibernate.inheritance.joinedTable.ElectricGuitar;
+import com.siripiri.example.hibernate.inheritance.joinedTable.repository.ElectricGuitarRepository;
+import com.siripiri.example.hibernate.inheritance.single.Account;
+import com.siripiri.example.hibernate.inheritance.single.CreditAccount;
+import com.siripiri.example.hibernate.inheritance.single.DebitAccount;
+import com.siripiri.example.hibernate.inheritance.single.dao.AccountDao;
+import com.siripiri.example.hibernate.inheritance.single.dao.AccountDaoImpl;
 import com.siripiri.example.hibernate.repository.DriverRepository;
-import liquibase.pro.packaged.D;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,13 +24,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("local")
-@Import({LocationDaoImpl.class, DriverDaoImpl.class})
+@Import({LocationDaoImpl.class, DriverDaoImpl.class, AccountDaoImpl.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DaoIntegrationTest {
 
@@ -36,6 +41,12 @@ public class DaoIntegrationTest {
 
     @Autowired
     DriverRepository driverRepository;
+
+    @Autowired
+    AccountDao accountDao;
+
+    @Autowired
+    ElectricGuitarRepository electricGuitarRepository;
 
     @Test
     void testDeleteLocation() {
@@ -185,4 +196,45 @@ public class DaoIntegrationTest {
         assertThat(driverList.size()).isEqualTo(10);
         assertThat(driverList.get(0).getFirstName()).isEqualTo("ken");
     }
+
+    /*
+     *  If you find all the account query it will give only the credit and debit class list because the account is
+     *  abstract class
+     *
+     *  [CreditAccount(creditLimit=400000.00), DebitAccount(overDraftFee=400000.00)]
+     *
+     */
+
+   @Test
+   void testPolymorphicQueries() {
+        accountDao.polyMorphicQueries();
+        List<Account> accounts = accountDao.findAll();
+
+        CreditAccount creditAccount = (CreditAccount) accounts.get(0);
+        DebitAccount debitAccount = (DebitAccount) accounts.get(1);
+
+        assertThat(creditAccount.getCreditLimit()).isEqualTo(400000L);
+        assertThat(debitAccount.getOverDraftFee()).isEqualTo(400000L);
+   }
+
+   /*
+    * JOINED TABLE:
+    *  In joined table inheritance type. We will use inner join to search the table for the inherited once.
+    *  EXAMPLE:
+    *
+    */
+    @Test
+    void testJoinedTable() {
+        ElectricGuitar electricGuitar = new ElectricGuitar();
+        electricGuitar.setNumberOfStrings(10);
+        electricGuitar.setNumberOfPickups(10);
+        electricGuitarRepository.save(electricGuitar);
+        List<ElectricGuitar> electricGuitars = electricGuitarRepository.findAll();
+        ElectricGuitar electricGuitar1 = electricGuitars.get(0);
+
+        assertThat(electricGuitar1.getNumberOfPickups()).isEqualTo(10);
+        assertThat(electricGuitar1.getNumberOfStrings()).isEqualTo(10);
+        assertThat(electricGuitar1.getId()).isEqualTo(1L);
+    }
+
 }

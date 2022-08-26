@@ -1,4 +1,4 @@
-package com.siripiri.example.hibernate.domain;
+package com.siripiri.example.hibernate.dao.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

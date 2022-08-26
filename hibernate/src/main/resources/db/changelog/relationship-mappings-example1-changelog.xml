@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="1661338293357-1" author="sripr">
+        <sql>create table order_header (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                bill_to_address varchar(255),
+                bill_to_city varchar(255),
+                bill_to_state varchar(255),
+                bill_to_zip_code varchar(255),
+                customer varchar(255),
+                order_status integer,
+                shipping_address varchar(255),
+                shipping_city varchar(255),
+                shipping_state varchar(255),
+                shipping_zip_code varchar(255),
+                order_approval_id bigint,
+                primary key (id)
+            );</sql>
+        <sql>create table order_line (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                quantity_ordered integer,
+                order_header_id bigint,
+                product_id bigint,
+                primary key (id)
+            );</sql>
+        <sql>create table product (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                description varchar(255),
+                product_status varchar(255),
+                primary key (id)
+            );</sql>
+        <sql>create table category (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                description varchar(255),
+                primary key (id)
+            )</sql>
+        <sql>create table product_category (
+                product_id bigint not null,
+                category_id bigint not null,
+                primary key (category_id, product_id)
+            )</sql>
+        <sql>create table order_approval (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                approved_by varchar(255),
+                primary key (id)
+            )</sql>
+        <sql>alter table product_category
+                add constraint joinTable_category
+                foreign key (category_id)
+                references category (id)</sql>
+        <sql>alter table product_category
+                add constraint joinTable_product
+                foreign key (product_id)
+                references product (id)</sql>
+        <sql>alter table order_line
+                add constraint orderLine_orderHeader_constrain
+                foreign key (order_header_id)
+                references order_header (id);</sql>
+        <sql>alter table order_line
+            add constraint orderLine_product_constrain
+            foreign key (product_id)
+            references product (id)</sql>
+        <sql>alter table order_header
+                add constraint order_header_order_approval_constrain
+                foreign key (order_approval_id)
+                references order_approval (id)</sql>
+    </changeSet>
+</databaseChangeLog>

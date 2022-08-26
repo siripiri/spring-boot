@@ -7,4 +7,5 @@
     <include  file="db/changelog/baseline-changelog.xml"/>
     <include file="db/changelog/init_data-changelog.xml"/>
     <include file="db/changelog/jpa_inheritance-changelog.xml"/>
+    <include file="db/changelog/relationship-mappings-example1-changelog.xml"/>
 </databaseChangeLog>

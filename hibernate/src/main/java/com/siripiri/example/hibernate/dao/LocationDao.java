@@ -1,6 +1,6 @@
 package com.siripiri.example.hibernate.dao;
 
-import com.siripiri.example.hibernate.domain.Location;
+import com.siripiri.example.hibernate.dao.domain.Location;
 
 public interface LocationDao {
     Location getById(Long id);

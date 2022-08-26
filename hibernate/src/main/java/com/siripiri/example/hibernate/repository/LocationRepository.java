@@ -1,6 +1,6 @@
 package com.siripiri.example.hibernate.repository;
 
-import com.siripiri.example.hibernate.domain.Location;
+import com.siripiri.example.hibernate.dao.domain.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

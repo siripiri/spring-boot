@@ -1,6 +1,6 @@
 package com.siripiri.example.hibernate.dao;
 
-import com.siripiri.example.hibernate.domain.Driver;
+import com.siripiri.example.hibernate.dao.domain.Driver;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 

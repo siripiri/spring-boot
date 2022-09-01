@@ -57,6 +57,7 @@
                 created_date datetime(6),
                 last_updated_date datetime(6),
                 approved_by varchar(255),
+                order_header_id bigint,
                 primary key (id)
             )</sql>
         <sql>alter table product_category
@@ -79,5 +80,9 @@
                 add constraint order_header_order_approval_constrain
                 foreign key (order_approval_id)
                 references order_approval (id)</sql>
+        <sql>alter table order_approval
+                add constraint orderApproval_orderHeader_constrain
+                foreign key (order_header_id)
+                references order_header (id)</sql>
     </changeSet>
 </databaseChangeLog>

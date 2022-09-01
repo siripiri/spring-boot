@@ -59,10 +59,10 @@ public class OrderHeader extends BaseEntity{
     private Address billToAddress;
 
     // bidirectional
-    @OneToMany(mappedBy = "orderHeader", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "orderHeader", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<OrderLine> orderLines;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "orderHeader")
     private OrderApproval orderApproval;
 
     public void addOrderLine(OrderLine orderLine){

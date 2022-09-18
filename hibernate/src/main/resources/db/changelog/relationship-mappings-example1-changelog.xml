@@ -6,6 +6,19 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
 
     <changeSet id="1661338293357-1" author="sripr">
+        <sql>create table customer (
+                id bigint not null auto_increment,
+                created_date datetime(6),
+                last_updated_date datetime(6),
+                address varchar(255),
+                city varchar(255),
+                state varchar(255),
+                zip_code varchar(255),
+                customer_name varchar(255),
+                email varchar(255),
+                phone varchar(255),
+                primary key (id)
+            )</sql>
         <sql>create table order_header (
                 id bigint not null auto_increment,
                 created_date datetime(6),
@@ -21,6 +34,7 @@
                 shipping_state varchar(255),
                 shipping_zip_code varchar(255),
                 order_approval_id bigint,
+                customer_id bigint,
                 primary key (id)
             );</sql>
         <sql>create table order_line (
@@ -84,5 +98,9 @@
                 add constraint orderApproval_orderHeader_constrain
                 foreign key (order_header_id)
                 references order_header (id)</sql>
+        <sql>alter table order_header
+                add constraint FKbkj7uhdpxqe8qb2b1g6poijwt
+                foreign key (customer_id)
+                references customer (id)</sql>
     </changeSet>
 </databaseChangeLog>

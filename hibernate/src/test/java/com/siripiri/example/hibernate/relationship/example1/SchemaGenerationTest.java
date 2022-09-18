@@ -60,7 +60,11 @@ public class SchemaGenerationTest {
     void testOrderHeaderRelationship() {
         OrderHeader orderHeader = new OrderHeader();
         orderHeader.setOrderStatus(OrderStatus.NEW);
-        orderHeader.setCustomer("Prasath");
+
+        Customer customer = new Customer();
+        customer.setCustomerName("Prasath");
+        orderHeader.setCustomer(customer);
+        customer.setOrders(Set.of(orderHeader));
 
         OrderLine orderLine = new OrderLine();
         orderLine.setQuantityOrdered(5);

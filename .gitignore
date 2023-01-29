@@ -19,3 +19,23 @@ hibernate/.idea
 *.iws
 *.iml
 *.ipr
+
+#security
+security/HELP.md
+security/target/
+security/!.mvn/wrapper/maven-wrapper.jar
+security/!**/src/main/**/target/
+scurity/!**/src/test/**/target/
+
+### STS ###
+security/apt_generated
+security/classpath
+security/factorypath
+security/project
+security/settings
+security/springBeans
+security/sts4-cache
+
+### IntelliJ IDEA ###
+security/.idea
+
